@@ -1,12 +1,12 @@
 %rebase('base.tpl', Page_Title='Bugtracker')
 <h1>bugtracker</h1>
 <div style="margin-bottom:10px;">
-<input class="btn btn-success btn-lg btn-block" style="width:auto !important; display: inline; margin:0;" type="submit" value="Send report" />
 <a href="#win1" class="btn btn-success btn-lg btn-block" style="width:auto !important; display: inline; margin:0;">Create bug</a>
 </div>
 <!-- Модальное окно №1 -->
    <a href="#x" class="overlay" id="win1"></a>
    <div class="popup">
+   <p style="color:red;">All form fields must be filled in English</p>
      <form action="/bugtracker/create" style='text-align: left' method="post">
   
  <div>
@@ -38,6 +38,18 @@
   </div>
   
   <div>
+    <label class="desc" id="assigned" for="assigned">
+		Assigned
+	</label>
+    <div>
+      <select id="assigned" name="assigned" class="field select medium" tabindex="11"> 
+		  <option value="Frontend">Frontend Vasya</option>
+		  <option value="Backend">Backend Petya</option>
+		  </select>
+    </div>
+  </div>
+  
+  <div>
     <label class="desc" id="summary" for="summary">
 		Summary
 	</label>
@@ -47,7 +59,7 @@
   </div>
   
   <div>
-    <label class="desc" id="priority" for="triority">
+    <label class="desc" id="priority" for="priority">
 		Priority
 	</label>
     <div>
@@ -96,12 +108,13 @@
 	<thead>
 		<tr>
 			<th>Number</th>
-			<th>project</th>
-			<th>issue_type</th>
-			<th>summary</th>
-			<th>priority</th>
-			<th>author</th>
-			<th>description</th>
+			<th>Summary</th>
+			<th>Issue type</th>
+			<th>Project</th>
+			<th>Priority</th>
+			<th>Author</th>
+			<th>Assigned</th>
+			<th>Description</th>
 		</tr>
 	</thead>
 	<!-- Table Header -->
@@ -118,17 +131,19 @@
 %	priority = issue.get('priority')
 %	author = issue.get('author')
 %	description = issue.get('description')
+%	assigned = issue.get('assigned')
 %	if i % 2 == 0 :
 		<tr class="even">
 %	else :
 		<tr>
 %	end
 			<td>{{i}}</td>
-			<td>{{project}}</td>
-			<td>{{issue_type}}</td>
 			<td>{{summary}}</td>
+			<td>{{issue_type}}</td>
+			<td>{{project}}</td>
 			<td>{{priority}}</td>
 			<td>{{author}}</td>
+			<td>{{assigned}}</td>
 			<td>{{description}}</td>
 		</tr><!-- Table Row -->
 %end

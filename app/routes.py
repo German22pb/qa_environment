@@ -4,6 +4,8 @@ import random, string
 import pickle
 import bottle
 import datetime
+import os
+
 
 bottle.TEMPLATE_PATH.insert(0, './app/views')
 @app.route('/')
@@ -14,16 +16,20 @@ def index():
 		charsForGenerateToken = string.ascii_uppercase + string.digits
 		qa_token = ''.join(random.choice(charsForGenerateToken) for i in range(35))
 		bottle.response.set_cookie("qa_token", qa_token)
-		fileName = 'data_'+qa_token
+		fileName = 'data_files/data_'+qa_token
 		pickle.dump(data, open(fileName, 'wb'))
 	else :
 		print(cookies)
-		fileName = 'data_'+cookies
-		new_data = pickle.load(open(fileName, 'rb'))
-		for i in new_data :
-			data.append(i)
-			print(i)
-		pickle.dump(data, open(fileName, 'wb'))
+		fileName = 'data_files/data_'+cookies
+		try:
+			new_data = pickle.load(open(fileName, 'rb'))
+			for i in new_data :
+				data.append(i)
+				print(i)
+			pickle.dump(data, open(fileName, 'wb'))
+		except:
+			pickle.dump(data, open(fileName, 'wb'))
+			
 	return bottle.template('index')
 	
 @app.route('/api_test')
@@ -36,9 +42,15 @@ def form_test():
 	
 @app.route('/bugtracker')
 def api_test():
-	cookies = bottle.request.get_cookie("qa_token")
-	fileName = 'data_'+cookies
-	data = pickle.load(open(fileName, 'rb'))
+	try:
+		cookies = bottle.request.get_cookie("qa_token")
+		fileName = 'data_files/data_'+cookies
+		data = pickle.load(open(fileName, 'rb'))
+	except:
+		index()
+		cookies = bottle.request.get_cookie("qa_token")
+		fileName = 'data_files/data_'+cookies
+		data = pickle.load(open(fileName, 'rb'))
 	return bottle.template('bugtracker', data = data)
 	
 @app.route('/form_test/pay_form')
@@ -84,19 +96,20 @@ def register():
 
 @app.route('/bugtracker/create', method='POST')
 def create():
-	i = bottle.request.get_cookie("qa_token")
-	print(i)
+	token = bottle.request.get_cookie("qa_token")
+	print(token)
 	project = bottle.request.forms.get("project")
 	issue_type = bottle.request.forms.get("issue_type")
 	summary = bottle.request.forms.get("summary")
 	priority = bottle.request.forms.get("priority")
 	author = bottle.request.forms.get("author")
 	description = bottle.request.forms.get("description")
+	assigned = bottle.request.forms.get("assigned")
 	issue = {'project':project,'issue_type':issue_type,
 			'summary':summary, 'priority':priority,
-			'author':author, 'description':description}
-	cookies = bottle.request.get_cookie("qa_token")
-	fileName = 'data_'+cookies
+			'author':author, 'description':description,
+			'assigned':assigned}
+	fileName = 'data_files/data_'+token
 	data = pickle.load(open(fileName, 'rb'))
 	data.append(issue)
 	pickle.dump(data, open(fileName, 'wb'))
@@ -106,4 +119,30 @@ def create():
 	print(priority)
 	print(author)
 	return '<script>alert("Issue created successfull"); document.location.href="/bugtracker";</script>'
+
+	
+@app.route('/verifyresult')	
+def verifyResult():
+	results = []
+	listOfResultsFiles = os.listdir("data_files")
+	print(listOfResultsFiles)
+	for fileName in listOfResultsFiles :
+		data = pickle.load(open("data_files/"+fileName, 'rb'))
+		results.append(data)
+	return bottle.template('verify_result', results = results)
+	
+@app.route('/verifyresult/clear', method='POST')
+def clearresult():
+	folder = "data_files"
+	for file in os.listdir(folder) :
+		file_path = os.path.join(folder, file)
+		try:
+			if os.path.isfile(file_path) :
+				os.unlink(file_path)
+		except:
+			continue
+	return '<script>alert("All results deleted"); document.location.href="/verifyresult";</script>'
+		
+	
+	
 

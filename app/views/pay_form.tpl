@@ -1,6 +1,6 @@
 %rebase('base.tpl', Page_Title='Payment Form')
 <h1>Payment Form</h1>
-<p>Отыщите баги в представленной форме. По найденным багам в разделе <a href="/bugtrecker" target="_blank">BugTracker</a> заведите репорт</p>
+<p>Отыщите баги в представленной форме. По найденным багам в разделе <a href="/bugtracker" target="_blank">BugTracker</a> заведите репорт</p>
 <div class="col-xs-12 credit-card">
 
 
@@ -15,7 +15,7 @@
 </div>                    
 </div>
 <div class="panel-body">
-<form role="form" id="payment-form">
+<form role="form" id="payment-form" action="/payment-form/deposit" style="text-align:left;" method="post">
 <div class="row">
 <div class="col-xs-12">
 <div class="form-group">
@@ -52,14 +52,14 @@
 <div class="row">
 <div class="col-xs-12">
 <div class="form-group">
-<label for="couponCode">COUPON CODE</label>
-<input type="text" class="form-control" name="couponCode">
+<label for="amount">AMOUNT</label>
+<input type="text" class="form-control" name="amount">
 </div>
 </div>                        
 </div>
 <div class="row">
 <div class="col-xs-12">
-<button class="btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
+<button class="btn btn-success btn-lg btn-block" type="submit">Betala nu</button>
 </div>
 </div>
 <div class="row" style="display:none;">
