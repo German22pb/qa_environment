@@ -44,7 +44,6 @@
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" href="/form_test/pay_form">Payment form</a>
               <a class="dropdown-item" href="/form_test/profile_form">Registration form</a>
-              <a class="dropdown-item" href="/form_test/contact_form">Contact form</a>
             </div>
           </li>
         </ul>

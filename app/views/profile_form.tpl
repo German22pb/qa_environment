@@ -63,7 +63,7 @@
 		<option key="12">Декабря</option>
 		<option key="11">Ноября</option>
 	</select>				
-	<input required id="Birth_year" size="5"> года
+	<input required id="Birth_year" size="4" maxlenght="8"> года
     </div>
   </div>
     
@@ -72,7 +72,7 @@
 		Телефон
 	</label>
     <div>
-      <input required id="Field1" placeholder=" +7(123)456-78-90" name="FieldPhone" type="text" class="field text fn" value="" size="8" tabindex="1">
+      <input required id="Field1" placeholder=" +7(123)456-78-90" name="FieldPhone" type="tel" class="field text fn" value="" size="21" tabindex="1" maxlength="10">
     </div>
   </div>
 	
@@ -91,7 +91,7 @@
     </label>
   
     <div>
-      <textarea id="Field4" name="Field4" spellcheck="true" rows="7" cols="30" tabindex="4"></textarea>
+      <textarea id="Field4" name="Field4" spellcheck="true" rows="7" cols="30" tabindex="4" pattern="[А-ЯЁа-яё]+"></textarea>
     </div>
   </div>
     
@@ -116,19 +116,24 @@
   
   <div>
       <label id="title6" class="desc">
-        Check All That Apply
+        Интересующие специальности
       </label>
       <div>
-      	<input required id="Field6" name="Field6" type="checkbox" value="First Choice" tabindex="8">
-      	<label class="choice" for="Field6">First Choice</label>
+      	<input required id="Field6" name="Field6" type="checkbox" value="tester" tabindex="8">
+      	<label class="choice" for="Field6">Инженер тестирования ПО</label>
       </div>
       <div>
-      	<input required id="Field7" name="Field7" type="checkbox" value="Second Choice" tabindex="9">
-      	<label class="choice" for="Field7">Second Choice</label>
+      	<input required id="Field7" name="Field7" type="checkbox" value="coder" tabindex="9">
+      	<label class="choice" for="Field7">Разработчик ПО</label>
       </div>
       <div>
-      	<input required id="Field8" name="Field8" type="checkbox" value="Third Choice" tabindex="10">
-      	<label class="choice" for="Field8">Third Choice</label>
+      	<input required id="Field8" name="Field8" type="checkbox" value="auto" tabindex="10" disabled>
+      	<label class="choice" for="Field8">Инженер автоматизации тестирования</label>
+      </span>
+      </div>
+      <div>
+      	<input required id="Field8" name="Field8" type="checkbox" value="sisadmin" tabindex="10">
+      	<label class="choice" for="Field8">Системный администратор</label>
       </span>
       </div>
   </div>
@@ -155,7 +160,7 @@
 		Введите пароль
 	</label>
     <div>
-      <input id="password" required name="password" type="text" class="field text fn" value="" size="10" tabindex="1">
+      <input id="password" required name="password" type="password" class="field text fn" value="" size="10" tabindex="1">
     </div>
   </div>
 

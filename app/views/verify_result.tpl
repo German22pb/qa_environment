@@ -34,6 +34,7 @@
 %			priority = issue.get('priority')
 %			author = issue.get('author')
 %			description = issue.get('description')
+%			description = description.replace('\n', '<br>')
 %			assigned = issue.get('assigned')
 %			if i % 2 == 0 :
 				<tr class="even">
@@ -47,7 +48,7 @@
 					<td>{{priority}}</td>
 					<td>{{author}}</td>
 					<td>{{assigned}}</td>
-					<td>{{description}}</td>
+					<td style="word-break: break-all;">{{!description}}</td>
 				</tr><!-- Table Row -->
 %		end
 		</tbody>

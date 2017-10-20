@@ -8,7 +8,7 @@
 <div class="panel panel-default credit-card-box">
 <div class="panel-heading display-table">
 <div class="row display-tr">
-<h3 class="panel-title display-td">Payment Details</h3>
+<h3 class="panel-title display-td">Account Limit: 300 $</h3>
 <div class="display-td">                            
 <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
 </div>
@@ -21,7 +21,7 @@
 <div class="form-group">
 <label for="cardNumber">CARD NUMBER</label>
 <div class="input-group">
-<input type="tel" class="form-control" name="cardNumber" placeholder="Valid Card Number" autocomplete="cc-number" required="" autofocus="">
+<input pattern="^[ 0-9]+$" class="form-control" name="cardNumber" placeholder="Valid Card Number" autocomplete="cc-number" required="" autofocus="">
 <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 </div>
 </div>                            
@@ -45,7 +45,7 @@
 <div class="col-xs-5 col-md-5 pull-right">
 <div class="form-group">
 <label for="cardCVC">CV CODE</label>
-<input type="tel" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required="">
+<input pattern="^[ 0-9]+$" class="form-control" name="cardCVC" placeholder="CVC" autocomplete="cc-csc" required="">
 </div>
 </div>
 </div>
@@ -53,7 +53,7 @@
 <div class="col-xs-12">
 <div class="form-group">
 <label for="amount">AMOUNT</label>
-<input type="text" class="form-control" name="amount">
+<input pattern="^[ 0-9]+$" class="form-control" name="amount">
 </div>
 </div>                        
 </div>

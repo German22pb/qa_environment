@@ -18,6 +18,7 @@ def index():
 		bottle.response.set_cookie("qa_token", qa_token)
 		fileName = 'data_files/data_'+qa_token
 		pickle.dump(data, open(fileName, 'wb'))
+		print("FILE: "+fileName)
 	else :
 		print(cookies)
 		fileName = 'data_files/data_'+cookies
@@ -31,6 +32,7 @@ def index():
 			pickle.dump(data, open(fileName, 'wb'))
 			
 	return bottle.template('index')
+
 	
 @app.route('/api_test')
 def api_test():
@@ -52,6 +54,7 @@ def api_test():
 		fileName = 'data_files/data_'+cookies
 		data = pickle.load(open(fileName, 'rb'))
 	return bottle.template('bugtracker', data = data)
+	
 	
 @app.route('/form_test/pay_form')
 def api_test():
@@ -93,6 +96,28 @@ def register():
 		return '<script>alert("Пароли не совпадают"); history.back();</script>'
 	else :
 		return '<script>alert("Unexpected Error");</script>'
+		
+@app.route('/api_test/send', method = 'POST')
+def sendRequest():
+	typeReq = bottle.request.forms.get("type")
+	print("TYPE REQ: " + typeReq)
+	url = bottle.request.forms.get("apiurl")
+	print("URL: " + url)
+	auth = bottle.request.forms.get("auth")
+	session = bottle.request.forms.get("session")
+	content = bottle.request.forms.get("content")
+	bodyType = bottle.request.forms.get("btype")
+	body = bottle.request.forms.get("body")
+	if typeReq != "Post" :
+		return "<script>alert('UnexpectedError | Request method not supported'); history.back();</script>"
+	elif url != "http://qa-env.com/api/test/getPaymentRestrictions" :
+		return "<script>alert('UnexpectedError | 404 Not Found'); history.back();</script>"
+	elif auth != "Basic d2LK55sds454dV4OnBhc3M=" :
+		return "<script>alert('Unauthorized | Access denied'); history.back();</script>"
+	elif bodyType != "json" :
+		return "<script>alert('415 | Unsupported Media Type'); history.back();</script>"
+	else :
+		return "<script>alert('OK'); history.back();</script>"
 
 @app.route('/bugtracker/create', method='POST')
 def create():
@@ -143,6 +168,11 @@ def clearresult():
 			continue
 	return '<script>alert("All results deleted"); document.location.href="/verifyresult";</script>'
 		
+@app.route('/payment-form/deposit', method='POST')
+def deposit():
+	cardHolder = bottle.request.forms.get('cardHolder')
+	return bottle.template('deposit.tpl', cardHolder = cardHolder)
+	
 	
 	
 
